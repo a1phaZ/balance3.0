@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Добавить элемент</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<!--  <form>-->
+    <ion-item lines="full">
+      <ion-label position="floating">Наименование</ion-label>
+      <ion-input type="text" #name [(ngModel)]="shoppingListItem.name" required></ion-input>
+    </ion-item>
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" (click)="createItemList()" expand="block" ><ion-icon name="add" slot="start"></ion-icon>Добавить в список</ion-button>
+      </ion-col>
+    </ion-row>
+<!--  </form>-->
+</ion-content>

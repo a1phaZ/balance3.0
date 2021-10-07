@@ -1,8 +1,10 @@
+export interface ShoppingList {
+  items: any[];
+  date: number; // timestamp
+}
+
 export interface ShoppingListItem {
   name: string;
-  category: string;
-  price: number;
-  count: number;
-  box: boolean;
-  sum: number;
+  done: boolean;
+  date: number; // timestamp
 }
