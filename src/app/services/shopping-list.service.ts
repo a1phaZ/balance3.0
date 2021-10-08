@@ -9,7 +9,7 @@ import { NotificationService }                          from './notification.ser
 export class ShoppingListService {
   shoppingListItemRef: AngularFirestoreCollection<ShoppingListItem> = null;
 
-  private dbPath = '/shopping-list';
+  private dbPath = '/shoppingList';
   constructor(
     private db: AngularFirestore,
     private notify: NotificationService,
@@ -23,6 +23,9 @@ export class ShoppingListService {
   }
 
   create(listItem: ShoppingListItem): any {
+    console.log(listItem);
+    const id = this.db.createId();
+    return this.db.doc(`${this.dbPath}/${id}`).set({...listItem});
     return this.shoppingListItemRef.add({...listItem});
   }
 
