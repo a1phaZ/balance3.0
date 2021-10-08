@@ -1,6 +1,7 @@
 import { Injectable }                                   from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { ShoppingListItem }                             from '../models/shopping-list';
+import { AuthenticationService }                        from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +13,9 @@ export class ShoppingListService {
 
   constructor(
     private db: AngularFirestore,
+    private auth: AuthenticationService,
   ) {
     this.shoppingListItemRef = db.collection(this.dbPath);
-    console.log(this.shoppingListItemRef);
   }
 
   getAll(): AngularFirestoreCollection<ShoppingListItem> {
@@ -22,7 +23,7 @@ export class ShoppingListService {
   }
 
   create(listItem: ShoppingListItem): any {
-    return this.shoppingListItemRef.add({...listItem});
+    return this.shoppingListItemRef.add({...listItem, userId: this.auth.userData.uid});
   }
 
   update(id: string, data: any): Promise<void> {
