@@ -1,0 +1,22 @@
+.pin-pad {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  ion-grid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 70%;
+
+    ion-row {
+      ion-col {
+        text-align: center;
+        padding: 1em;
+        border: 1px solid grey;
+        margin: .5em;
+        border-radius: 50%;
+      }
+    }
+  }
+}

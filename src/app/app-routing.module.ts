@@ -20,6 +20,10 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./pages/user/login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'pin',
+    loadChildren: () => import('./pages/user/pin-pad/pin-pad.module').then( m => m.PinPadPageModule)
   }
 ];
 

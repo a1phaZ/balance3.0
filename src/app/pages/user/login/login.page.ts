@@ -17,6 +17,9 @@ export class LoginPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    if (this.authService.isLoggedIn) {
+      this.router.navigate(['pin']);
+    }
   }
 
   logIn(email, password) {
@@ -24,7 +27,7 @@ export class LoginPage implements OnInit {
       .then((res) => {
         console.log(res);
         if (this.authService.isEmailVerified) {
-          this.router.navigate(['shopping-list/add']);
+          this.router.navigate(['pin']);
         } else {
           this.notify.showSuccessToast('Email is not verified');
           return false;
