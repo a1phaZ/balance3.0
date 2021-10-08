@@ -15,7 +15,7 @@ export class ShoppingListService {
     private db: AngularFirestore,
     private auth: AuthenticationService,
   ) {
-    this.shoppingListItemRef = db.collection(this.dbPath, ref => ref.where('userId', '==', auth.userId));
+    this.shoppingListItemRef = db.collection(this.dbPath, ref => ref.where('userId', '==', auth.userId).orderBy('done'));
   }
 
   getAll(): AngularFirestoreCollection<ShoppingListItem> {

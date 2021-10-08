@@ -1,13 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Добавить элемент</ion-title>
+    <ion-title>Список покупок</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 <!--  <form>-->
     <ion-item lines="full">
-      <ion-label position="floating">Наименование</ion-label>
+      <ion-label position="floating">Введите наименование</ion-label>
       <ion-input type="text" #name [(ngModel)]="shoppingListItem.name" required></ion-input>
     </ion-item>
     <ion-row>
@@ -17,21 +17,7 @@
     </ion-row>
 
   <ion-list>
-    <ion-item>
-      <ion-list-header>Не выполненые</ion-list-header>
-      <ion-badge slot="end">{{unDoneList?.length || 0}}</ion-badge>
-    </ion-item>
-    <ion-item *ngFor="let item of unDoneList">
-      <ion-label>{{item.name}}</ion-label>
-      <ion-checkbox slot="end" [(ngModel)]="item.done" (ngModelChange)="itemChange(item.id, item.done)"></ion-checkbox>
-    </ion-item>
-  </ion-list>
-  <ion-list>
-    <ion-item>
-      <ion-list-header >Выполненые</ion-list-header>
-      <ion-badge slot="end">{{doneList?.length || 0}}</ion-badge>
-    </ion-item>
-    <ion-item *ngFor="let item of doneList">
+    <ion-item *ngFor="let item of list" [class.done]="item.done">
       <ion-label>{{item.name}}</ion-label>
       <ion-checkbox slot="end" [(ngModel)]="item.done" (ngModelChange)="itemChange(item.id, item.done)"></ion-checkbox>
     </ion-item>
