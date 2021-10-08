@@ -51,9 +51,9 @@ export class AuthenticationService {
   passwordRecover(passwordResetEmail) {
     return this.ngFireAuth.sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
-        this.notify.showToast('Password reset email has been sent, please check your inbox.');
+        this.notify.showSuccessToast('Password reset email has been sent, please check your inbox.');
       }).catch((error) => {
-        this.notify.showToast(error.message);
+        this.notify.showErrorToast(error.message);
       });
   }
 
@@ -87,7 +87,7 @@ export class AuthenticationService {
         });
         this.setUserData(result.user);
       }).catch((error) => {
-        this.notify.showToast(error.message);
+        this.notify.showErrorToast(error.message);
         window.alert(error);
       });
   }

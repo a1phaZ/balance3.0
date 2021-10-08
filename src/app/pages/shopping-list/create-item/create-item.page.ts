@@ -1,6 +1,8 @@
 import { Component, OnInit }   from '@angular/core';
 import { ShoppingListService } from '../../../services/shopping-list.service';
-import { ShoppingListItem }     from '../../../models/shopping-list';
+import { ShoppingListItem }    from '../../../models/shopping-list';
+import { NotificationService } from '../../../services/notification.service';
+import { map }                 from 'rxjs/internal/operators';
 
 @Component({
   selector: 'app-create-item',
@@ -11,7 +13,11 @@ export class CreateItemPage implements OnInit {
   shoppingListItem = new ShoppingListItem();
   submitted = false;
 
-  constructor(private sl: ShoppingListService) { }
+  constructor(
+    private sl: ShoppingListService,
+    private notify: NotificationService
+  ) {}
+
 
   ngOnInit() {
     console.log(this.shoppingListItem);
@@ -23,7 +29,7 @@ export class CreateItemPage implements OnInit {
         console.log('result add', res);
         this.submitted = true;
       })
-      .catch(err => console.log(err));
+      .catch(err => this.notify.showErrorToast(err.message));
   }
 
   newItemList() {
