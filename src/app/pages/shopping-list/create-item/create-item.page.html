@@ -15,5 +15,26 @@
         <ion-button type="button" (click)="createItemList()" expand="block" [disabled]="shoppingListItem.name && submitted"><ion-icon name="add" slot="start"></ion-icon>Добавить в список</ion-button>
       </ion-col>
     </ion-row>
+
+  <ion-list>
+    <ion-item>
+      <ion-list-header>Не выполненые</ion-list-header>
+      <ion-badge slot="end">{{unDoneList?.length || 0}}</ion-badge>
+    </ion-item>
+    <ion-item *ngFor="let item of unDoneList">
+      <ion-label>{{item.name}}</ion-label>
+      <ion-checkbox slot="end" [(ngModel)]="item.done" (ngModelChange)="itemChange(item.id, item.done)"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-item>
+      <ion-list-header >Выполненые</ion-list-header>
+      <ion-badge slot="end">{{doneList?.length || 0}}</ion-badge>
+    </ion-item>
+    <ion-item *ngFor="let item of doneList">
+      <ion-label>{{item.name}}</ion-label>
+      <ion-checkbox slot="end" [(ngModel)]="item.done" (ngModelChange)="itemChange(item.id, item.done)"></ion-checkbox>
+    </ion-item>
+  </ion-list>
 <!--  </form>-->
 </ion-content>
