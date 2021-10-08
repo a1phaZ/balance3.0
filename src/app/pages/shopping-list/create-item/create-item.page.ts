@@ -12,15 +12,37 @@ import { map }                 from 'rxjs/internal/operators';
 export class CreateItemPage implements OnInit {
   shoppingListItem = new ShoppingListItem();
   submitted = false;
+  list: any[] = [];
+  doneList: any[];
+  unDoneList: any[];
 
   constructor(
     private sl: ShoppingListService,
     private notify: NotificationService
-  ) {}
+  ) {
+  }
 
 
   ngOnInit() {
-    console.log(this.shoppingListItem);
+    this.getList();
+  }
+
+  getList() {
+    this.sl.getAll().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({id: c.payload.doc.id, ...c.payload.doc.data()})
+        )
+      )
+    ).subscribe(data => {
+      this.list = data;
+      this.fillLists();
+    });
+  }
+
+  fillLists() {
+    this.doneList = this.list.filter(({done}) => done);
+    this.unDoneList = this.list.filter(({done}) => !done);
   }
 
   createItemList() {
@@ -35,6 +57,10 @@ export class CreateItemPage implements OnInit {
   newItemList() {
     this.shoppingListItem = new ShoppingListItem();
     this.submitted = false;
+  }
+
+  itemChange(id, done) {
+    this.sl.update(id, {done});
   }
 
 }
