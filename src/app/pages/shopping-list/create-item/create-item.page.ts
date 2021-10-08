@@ -24,10 +24,10 @@ export class CreateItemPage implements OnInit {
   }
 
   createItemList() {
+    this.submitted = true;
     this.sl.create({...this.shoppingListItem, date: +new Date(), done: false})
-      .then(res => {
-        console.log('result add', res);
-        this.submitted = true;
+      .then(() => {
+        this.newItemList();
       })
       .catch(err => this.notify.showErrorToast(err.message));
   }
