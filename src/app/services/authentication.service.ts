@@ -69,6 +69,14 @@ export class AuthenticationService {
     return (user.emailVerified !== false);
   }
 
+  get userId(): string {
+    if (this.userData) {
+      return this.userData.uid;
+    }
+    const user = JSON.parse(this.getItem('user'));
+    return user.uid;
+  }
+
   getItem(key) {
     return localStorage.getItem(key);
   }
