@@ -3,6 +3,8 @@ import { ShoppingListService } from '../../../services/shopping-list.service';
 import { ShoppingListItem }    from '../../../models/shopping-list';
 import { NotificationService } from '../../../services/notification.service';
 import { map }                 from 'rxjs/internal/operators';
+import { ModalController }     from '@ionic/angular';
+import { ModalPage }           from '../../modal/modal.page';
 
 @Component({
   selector: 'app-create-item',
@@ -18,7 +20,8 @@ export class CreateItemPage implements OnInit {
 
   constructor(
     private sl: ShoppingListService,
-    private notify: NotificationService
+    private notify: NotificationService,
+    private modalCtrl: ModalController
   ) {
   }
 
@@ -60,7 +63,26 @@ export class CreateItemPage implements OnInit {
   }
 
   itemChange(id, done) {
+    // console.log(done)
     this.sl.update(id, {done});
   }
 
+  async completeItem(id) {
+    await this.presentModal();
+    // this.sl.update(id, {complete: true});
+  }
+
+  deleteItem(id) {
+    this.sl.delete(id);
+  }
+
+  async presentModal() {
+    const modal = await this.modalCtrl.create({
+      component: ModalPage,
+      cssClass: 'balance-modal',
+      swipeToClose: true,
+      presentingElement: await this.modalCtrl.getTop() // Get the top-most ion-modal
+    });
+    return await modal.present();
+  }
 }

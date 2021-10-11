@@ -5,22 +5,51 @@
 </ion-header>
 
 <ion-content>
-<!--  <form>-->
-    <ion-item lines="full">
-      <ion-label position="floating">Введите наименование</ion-label>
-      <ion-input type="text" #name [(ngModel)]="shoppingListItem.name" required></ion-input>
-    </ion-item>
-    <ion-row>
-      <ion-col>
-        <ion-button type="button" (click)="createItemList()" expand="block" [disabled]="shoppingListItem.name && submitted"><ion-icon name="add" slot="start"></ion-icon>Добавить в список</ion-button>
-      </ion-col>
-    </ion-row>
+  <ion-item lines="full">
+    <ion-label position="floating">Введите наименование</ion-label>
+    <ion-input #name [(ngModel)]="shoppingListItem.name" required type="text"></ion-input>
+  </ion-item>
+  <ion-row>
+    <ion-col>
+      <ion-button (click)="createItemList()" [disabled]="shoppingListItem.name && submitted" expand="block"
+                  type="button">
+        <ion-icon name="add" slot="start"></ion-icon>
+        Добавить в список
+      </ion-button>
+    </ion-col>
+  </ion-row>
 
   <ion-list>
     <ion-item *ngFor="let item of list" [class.done]="item.done">
-      <ion-label>{{item.name}}</ion-label>
-      <ion-checkbox slot="end" [(ngModel)]="item.done" (ngModelChange)="itemChange(item.id, item.done)"></ion-checkbox>
+<!--      -->
+      <ion-item-sliding>
+        <ion-item-options (ionSwipe)="deleteItem(item.id)" side="start">
+          <ion-item-option color="danger" expandable>
+            Delete
+          </ion-item-option>
+        </ion-item-options>
+
+        <ion-item>
+          <ion-label class="shopping-list-item">{{item.name}}
+            <ion-icon *ngIf="item.done && !item.complete" name="checkmark-outline"></ion-icon>
+            <ion-icon *ngIf="item.done && item.complete" name="checkmark-done-outline"></ion-icon>
+          </ion-label>
+        </ion-item>
+
+        <ion-item-options *ngIf="!item.done" (ionSwipe)="itemChange(item.id, !item.done)" side="end">
+          <ion-item-option color="tertiary" expandable>
+            Done
+          </ion-item-option>
+        </ion-item-options>
+        <ion-item-options *ngIf="item.done && !item.complete" side="end">
+          <ion-item-option color="primary" (click)="itemChange(item.id, !item.done)">
+            Undo
+          </ion-item-option>
+          <ion-item-option color="success" (click)="completeItem(item.id)">
+            Complete
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
     </ion-item>
   </ion-list>
-<!--  </form>-->
 </ion-content>

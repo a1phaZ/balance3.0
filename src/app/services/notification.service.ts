@@ -10,9 +10,9 @@ export class NotificationService {
 
   constructor(private alertCtrl: AlertController, private toastCtrl: ToastController) { }
 
-  async showAlert(header, message, buttons) {
+  async showAlert(header, message, inputs, buttons) {
     this.alert = await this.alertCtrl.create({
-      header, message, buttons
+      header, message, inputs, buttons
     });
 
     await this.alert.present();
