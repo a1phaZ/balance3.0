@@ -5,6 +5,10 @@
   flex-wrap: wrap;
   align-items: center;
 
+  background: var(--keyboard-background);
+  box-shadow: var(--keyboard-shadow);
+  border-radius: var(--radius) var(--radius) 0 0;
+
   .pin-pad-digits {
     position: relative;
     overflow: visible;
