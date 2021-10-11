@@ -30,7 +30,7 @@ export class KeyboardComponent implements OnInit {
     this.fillDots.emit({length: this.pin.length, error: null});
     if (this.pin.length === 5) {
       if (this.comparePin(this.savedPin, this.pin)) {
-        this.navCtrl.navigateForward('/shopping-list/add');
+        this.navCtrl.navigateRoot('/shopping-list/add');
       } else {
         this.pin = [];
         this.fillDots.emit({error: 'Pin error', length: 0});
