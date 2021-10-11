@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Router }                                  from '@angular/router';
+import { NavController }                           from '@ionic/angular';
 
 @Component({
   selector: 'app-keyboard',
@@ -10,7 +10,9 @@ export class KeyboardComponent implements OnInit {
   @Output() fillDots = new EventEmitter();
   savedPin: number[] = [];
   pin: number[] = [];
-  constructor(private router: Router) { }
+
+  constructor(private navCtrl: NavController) {
+  }
 
   ngOnInit() {
     this.savedPin = JSON.parse(localStorage.getItem('pin')) || [];
@@ -20,7 +22,7 @@ export class KeyboardComponent implements OnInit {
     if (digit === -1) {
       localStorage.setItem('pin', JSON.stringify([]));
       localStorage.setItem('user', JSON.stringify(null));
-      this.router.navigate(['/']);
+      this.navCtrl.navigateRoot('/');
       console.log('-1');
       return;
     }
@@ -28,7 +30,7 @@ export class KeyboardComponent implements OnInit {
     this.fillDots.emit({length: this.pin.length, error: null});
     if (this.pin.length === 5) {
       if (this.comparePin(this.savedPin, this.pin)) {
-        this.router.navigate(['shopping-list/add']);
+        this.navCtrl.navigateForward('/shopping-list/add');
       } else {
         this.pin = [];
         this.fillDots.emit({error: 'Pin error', length: 0});

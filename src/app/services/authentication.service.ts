@@ -1,9 +1,10 @@
 import { Injectable, NgZone }                         from '@angular/core';
-import { User }                                      from '../interfaces/user';
-import { Router }                                     from '@angular/router';
+import { User }                                       from '../interfaces/user';
 import { AngularFireAuth }                            from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { NotificationService }                        from './notification.service';
+import { NavController }                              from '@ionic/angular';
+
 // import auth from '@firebase/auth';
 
 
@@ -16,7 +17,7 @@ export class AuthenticationService {
   constructor(
     public afStore: AngularFirestore,
     public ngFireAuth: AngularFireAuth,
-    public router: Router,
+    public navCtrl: NavController,
     public ngZone: NgZone,
     private notify: NotificationService
   ) {
@@ -28,33 +29,6 @@ export class AuthenticationService {
         localStorage.setItem('user', null);
       }
     });
-  }
-
-  // Login in with email/password
-  signIn(email, password) {
-    return this.ngFireAuth.signInWithEmailAndPassword(email, password);
-  }
-
-  // Register user with email/password
-  registerUser(email, password) {
-    return this.ngFireAuth.createUserWithEmailAndPassword(email, password);
-  }
-
-  // Email verification when new user register
-  sendVerificationMail() {
-    return this.ngFireAuth.currentUser
-      .then(u => u.sendEmailVerification())
-      .then(() => this.router.navigate(['verify-email']));
-  }
-
-  // Recover password
-  passwordRecover(passwordResetEmail) {
-    return this.ngFireAuth.sendPasswordResetEmail(passwordResetEmail)
-      .then(() => {
-        this.notify.showSuccessToast('Password reset email has been sent, please check your inbox.');
-      }).catch((error) => {
-        this.notify.showErrorToast(error.message);
-      });
   }
 
   // Returns true when user is logged in
@@ -77,6 +51,33 @@ export class AuthenticationService {
     return user.uid;
   }
 
+  // Login in with email/password
+  signIn(email, password) {
+    return this.ngFireAuth.signInWithEmailAndPassword(email, password);
+  }
+
+  // Register user with email/password
+  registerUser(email, password) {
+    return this.ngFireAuth.createUserWithEmailAndPassword(email, password);
+  }
+
+  // Email verification when new user register
+  sendVerificationMail() {
+    return this.ngFireAuth.currentUser
+      .then(u => u.sendEmailVerification())
+      .then(() => this.navCtrl.navigateRoot('/verify-email'));
+  }
+
+  // Recover password
+  passwordRecover(passwordResetEmail) {
+    return this.ngFireAuth.sendPasswordResetEmail(passwordResetEmail)
+      .then(() => {
+        this.notify.showSuccessToast('Password reset email has been sent, please check your inbox.');
+      }).catch((error) => {
+        this.notify.showErrorToast(error.message);
+      });
+  }
+
   getItem(key) {
     return localStorage.getItem(key);
   }
@@ -91,7 +92,7 @@ export class AuthenticationService {
     return this.ngFireAuth.signInWithPopup(provider)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate(['dashboard']);
+          this.navCtrl.navigateRoot('dashboard');
         });
         this.setUserData(result.user);
       }).catch((error) => {
@@ -119,7 +120,7 @@ export class AuthenticationService {
   signOut() {
     return this.ngFireAuth.signOut().then(() => {
       localStorage.removeItem('user');
-      this.router.navigate(['login']);
+      this.navCtrl.navigateRoot('/login');
     });
   }
 }
