@@ -24,3 +24,11 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+@font-face {
+  font-family: Karla;
+  src: url("./assets/fonts/Karla-Regular.ttf") format('ttf'),
+  url("./assets/fonts/Karla-Bold.ttf") format('ttf'),
+  url("assets/fonts/Karla-BoldItalic.ttf") format('ttf'),
+  url("assets/fonts/Karla-Italic.ttf") format('ttf');
+}
