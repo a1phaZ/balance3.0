@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit }   from '@angular/core';
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-pin-pad',
@@ -6,10 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pin-pad.page.scss'],
 })
 export class PinPadPage implements OnInit {
+  pinLength = 0;
 
-  constructor() { }
+  constructor(
+    private notify: NotificationService
+  ) { }
 
   ngOnInit() {
   }
 
+  fillDots($event: { error: string; length: number }) {
+    const { error, length } = $event;
+    if (error) {
+      this.notify.showErrorToast(error);
+    }
+    this.pinLength = length;
+  }
 }

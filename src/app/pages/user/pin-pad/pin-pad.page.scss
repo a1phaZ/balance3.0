@@ -1,22 +1,35 @@
-.pin-pad {
-  height: 100%;
+.pin-pad-wrapper{
+  font-family: Karla, serif;
   display: flex;
   flex-direction: column;
-
-  ion-grid {
+  justify-content: space-between;
+  height: 100%;
+  .pin-pad-content{
+    flex: 1;
+    align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 70%;
 
-    ion-row {
-      ion-col {
-        text-align: center;
-        padding: 1em;
-        border: 1px solid grey;
-        margin: .5em;
+    .dots {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      padding-top: 2em;
+      //height: var(--pin-size);
+      .dot {
+        content: '';
+        background-color: var(--pin-color);
+        width: var(--pin-size);
+        height: var(--pin-size);
+        margin: 0 1em;
         border-radius: 50%;
+      }
+      .dot.active {
+        background-color: var(--pin-active-color);
       }
     }
   }
 }
+

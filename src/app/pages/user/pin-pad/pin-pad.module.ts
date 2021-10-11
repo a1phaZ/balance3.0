@@ -6,7 +6,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { PinPadPageRoutingModule } from './pin-pad-routing.module';
 
-import { PinPadPage } from './pin-pad.page';
+import { PinPadPage }        from './pin-pad.page';
+import { KeyboardComponent } from './keyboard/keyboard.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { PinPadPage } from './pin-pad.page';
     IonicModule,
     PinPadPageRoutingModule
   ],
-  declarations: [PinPadPage]
+	declarations: [PinPadPage, KeyboardComponent]
 })
 export class PinPadPageModule {}

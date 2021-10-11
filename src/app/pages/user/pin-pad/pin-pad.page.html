@@ -5,28 +5,17 @@
 </ion-header>
 
 <ion-content fullscreen="true">
-  <div class="pin-pad">
-    <ion-grid >
-      <ion-row>
-        <ion-col>1</ion-col>
-        <ion-col>2</ion-col>
-        <ion-col>3</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>4</ion-col>
-        <ion-col>5</ion-col>
-        <ion-col>6</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>7</ion-col>
-        <ion-col>8</ion-col>
-        <ion-col>9</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col></ion-col>
-        <ion-col>0</ion-col>
-        <ion-col><ion-icon name="delete" slot="icon-only"></ion-icon> </ion-col>
-      </ion-row>
-    </ion-grid>
+  <div class="pin-pad-wrapper">
+    <div class="pin-pad-content">
+      <h1 class="app-name">Balance 3.0</h1>
+      <div class="dots">
+        <div class="dot" [class.active]="pinLength > 0">&nbsp;</div>
+        <div class="dot" [class.active]="pinLength > 1">&nbsp;</div>
+        <div class="dot" [class.active]="pinLength > 2">&nbsp;</div>
+        <div class="dot" [class.active]="pinLength > 3">&nbsp;</div>
+        <div class="dot" [class.active]="pinLength > 4">&nbsp;</div>
+      </div>
+    </div>
+  <app-keyboard (fillDots)="fillDots($event)"></app-keyboard>
   </div>
 </ion-content>
