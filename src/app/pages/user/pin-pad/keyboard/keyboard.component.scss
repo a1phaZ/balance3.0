@@ -1,0 +1,33 @@
+.pin-pad {
+  height: 274px;
+  padding: 30px 50px 70px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  .pin-pad-digits {
+    position: relative;
+    overflow: visible;
+    flex: 33%;
+    text-align: center;
+
+    font-family: Karla, serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 100%;
+  }
+
+  .forgot {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 14px;
+    /* identical to box height */
+
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--text-active-color);
+  }
+
+}
