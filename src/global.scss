@@ -26,9 +26,38 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 @font-face {
-  font-family: Karla;
-  src: url("./assets/fonts/Karla-Regular.ttf") format('ttf'),
-  url("./assets/fonts/Karla-Bold.ttf") format('ttf'),
-  url("assets/fonts/Karla-BoldItalic.ttf") format('ttf'),
-  url("assets/fonts/Karla-Italic.ttf") format('ttf');
+  font-family: 'Karla';
+  src: url('assets/fonts/Karla-Italic.woff2') format('woff2'),
+  url('assets/fonts/Karla-Italic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
 }
+
+@font-face {
+  font-family: 'Karla';
+  src: url('assets/fonts/Karla-BoldItalic.woff2') format('woff2'),
+  url('assets/fonts/Karla-BoldItalic.woff') format('woff');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Karla';
+  src: url('assets/fonts/Karla-Regular.woff2') format('woff2'),
+  url('assets/fonts/Karla-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Karla';
+  src: url('assets/fonts/Karla-Bold.woff2') format('woff2'),
+  url('assets/fonts/Karla-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
