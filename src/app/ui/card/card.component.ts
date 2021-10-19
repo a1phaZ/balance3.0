@@ -8,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class CardComponent implements OnInit {
   @Input() icon = 'card-outline';
   @Input() title: string;
-  @Input() sum = 0;
+  @Input() balance = 0;
 
   constructor() { }
 
