@@ -9,12 +9,15 @@ import { MainPageRoutingModule } from './main-routing.module';
 import { MainPage }      from './main.page';
 import { CardComponent } from '../../ui/card/card.component';
 
+import { SwiperModule } from 'swiper/angular';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     MainPageRoutingModule,
+    SwiperModule
   ],
 	declarations: [MainPage, CardComponent]
 })
