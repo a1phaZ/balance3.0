@@ -6,11 +6,9 @@
 
 <ion-content>
   <div class="main-content">
-    <swiper #swiper [spaceBetween]="20" [slidesPerView]="2" >
-      <ng-template swiperSlide><app-card title="Visa card" sum="1000"></app-card></ng-template>
-      <ng-template swiperSlide><app-card title="Visa card" sum="1000"></app-card></ng-template>
-      <ng-template swiperSlide><app-card title="Visa card" sum="1000"></app-card></ng-template>
+    <swiper #swiper [spaceBetween]="20" [slidesPerView]="2">
+      <ng-template swiperSlide *ngFor="let card of cards"><app-card [title]="card.title" [balance]="card.balance" [icon]="card.icon"></app-card></ng-template>
+      <ng-template swiperSlide><app-card title="Add money" balance="0" icon="add-outline" (click)="addCardClick()"></app-card> </ng-template>
     </swiper>
   </div>
-<!--  <app-card title="Visa card" sum="1000"></app-card>-->
 </ion-content>
