@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NavController }                           from '@ionic/angular';
+import { MAIN_PAGE }                               from '../../../../shared/constants';
 
 @Component({
   selector: 'app-keyboard',
@@ -30,7 +31,7 @@ export class KeyboardComponent implements OnInit {
     this.fillDots.emit({length: this.pin.length, error: null});
     if (this.pin.length === 5) {
       if (this.comparePin(this.savedPin, this.pin)) {
-        this.navCtrl.navigateRoot('/shopping-list/add');
+        this.navCtrl.navigateRoot(MAIN_PAGE);
       } else {
         this.pin = [];
         this.fillDots.emit({error: 'Pin error', length: 0});

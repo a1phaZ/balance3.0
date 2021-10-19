@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>shopping-list</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <ion-list lines="none" class="shopping-list">
+    <ng-container *ngFor="let item of list">
+      <app-list-item [item]="item" (doneItem)="doneItem($event)"></app-list-item>
+    </ng-container>
+
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-item lines="full">
+      <ion-label position="floating">Введите наименование</ion-label>
+      <ion-input #name [(ngModel)]="shoppingListItem.name" required type="text" clearInput="true"></ion-input>
+    </ion-item>
+  </ion-toolbar>
+</ion-footer>

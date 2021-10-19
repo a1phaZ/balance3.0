@@ -5,11 +5,35 @@
 </ion-header>
 
 <ion-content>
+<!--  <ion-list>-->
+  <form [formGroup]="form" (ngSubmit)="onSubmit($event)" novalidate>
+    <ion-item lines="full">
+      <ion-label position="floating">Введите наименование</ion-label>
+      <ion-input formControlName="name" value="{{form.value.name}}" type="text" clearInput="true" autocomplete="false"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating">Введите категорию</ion-label>
+      <ion-input formControlName="category" type="text" clearInput="true" value="{{form.value.category}}" autocomplete="false"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating">Цена</ion-label>
+      <ion-input formControlName="price" type="number" clearInput="true" autocomplete="false" (ionChange)="calc()"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating">Количество</ion-label>
+      <ion-input formControlName="count" type="number" clearInput="true" autocomplete="false" (ionChange)="calc()"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating">Итого: {{form.value.sum}}</ion-label>
+    </ion-item>
+  </form>
 
+<!--  </ion-list>-->
 </ion-content>
 
 <ion-footer class="modal-footer">
   <ion-toolbar>
-    <ion-button class="modal-button success-button" expand="full" fill="round">Save</ion-button>
+<!--    <ion-button class="modal-button success-button" expand="full" fill="round">Save</ion-button>-->
+    <ion-button type="submit" expand="full" fill="round">Save</ion-button>
   </ion-toolbar>
 </ion-footer>

@@ -1,0 +1,28 @@
+.shopping-list-item {
+  box-sizing: border-box;
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  border-bottom-right-radius: 0;
+  background: var(--not-done-bubble-color);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.done {
+  border-radius: var(--radius);
+  border-bottom-left-radius: 0;
+  background: var(--done-bubble-color);
+}
+
+.selected {
+  border: 1px solid black;
+}
+
+::ng-deep.balance-modal {
+  //--height: 100%;
+  //--max-height: 70%;
+  --border-radius: var(--radius) var(--radius) 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}

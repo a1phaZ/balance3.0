@@ -1,10 +1,8 @@
 export default class Purchase {
-  id: string;
-  userId: string;
-  name: string;
-  category: string;
-  price: number;
-  count: number;
+  name = '';
+  category = '';
+  price = 0;
+  count = 0;
   sum: number;
   date: number;
 }

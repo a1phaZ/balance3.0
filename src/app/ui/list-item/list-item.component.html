@@ -1,0 +1,21 @@
+<ion-item-sliding>
+  <ion-item >
+    <ion-label
+      [slot]="item.done ? 'start' : 'end'"
+      class="shopping-list-item"
+      [class.done]="item.done"
+      (click)="onClickItem($event)"
+      [attr.id]="item.id"
+    >
+      {{item.name}}
+      <ion-icon *ngIf="item.done && !item.complete" name="checkmark-outline"></ion-icon>
+      <ion-icon *ngIf="item.done && item.complete" name="checkmark-done-outline"></ion-icon>
+    </ion-label>
+  </ion-item>
+
+  <ion-item-options *ngIf="!item.done" (ionSwipe)="onSwipe(item.id)" side="end">
+    <ion-item-option color="tertiary" expandable>
+      Done
+    </ion-item-option>
+  </ion-item-options>
+</ion-item-sliding>
