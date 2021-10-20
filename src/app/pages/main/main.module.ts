@@ -9,7 +9,8 @@ import { MainPageRoutingModule } from './main-routing.module';
 import { MainPage }      from './main.page';
 import { CardComponent } from '../../ui/card/card.component';
 
-import { SwiperModule } from 'swiper/angular';
+import { SwiperModule }    from 'swiper/angular';
+import { ModalPageModule } from '../modal/modal.module';
 
 @NgModule({
   imports: [
@@ -17,8 +18,9 @@ import { SwiperModule } from 'swiper/angular';
     FormsModule,
     IonicModule,
     MainPageRoutingModule,
-    SwiperModule
+    SwiperModule,
+    ModalPageModule,
   ],
-	declarations: [MainPage, CardComponent]
+	declarations: [MainPage, CardComponent],
 })
 export class MainPageModule {}

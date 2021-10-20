@@ -3,6 +3,7 @@ import SwiperCore, { Pagination } from 'swiper';
 import { CardService, ICard }     from '../../services/card.service';
 import { ModalPage }              from '../modal/modal.page';
 import { ModalService }           from '../../services/modal.service';
+import { Validators }             from '@angular/forms';
 
 SwiperCore.use([Pagination]);
 
@@ -19,12 +20,19 @@ export class MainPage implements OnInit {
     private modalCtrl: ModalService
   ) {
     modalCtrl.modalData.subscribe((res) => {
-      console.log(res);
+      if (!res) {
+        return;
+      }
+      this.addCard(res);
     });
   }
 
   ngOnInit() {
     this.cardService.getAll().subscribe(data => this.cards = data);
+  }
+
+  addCard(card: ICard) {
+    this.cardService.addCard(card);
   }
 
   async addCardClick() {
@@ -40,10 +48,26 @@ export class MainPage implements OnInit {
 const fields = [
   {
     type: 'text',
-    name: 'title'
+    name: 'title',
+    title: 'Наименование',
+    validators: [Validators.required]
   },
   {
     type: 'number',
     name: 'balance',
+    title: 'Баланс',
+    validators: [Validators.required]
   },
+  {
+    type: 'select',
+    name: 'icons',
+    title: 'Значек',
+    options: [
+      'card-outline',
+      'cash-outline',
+      'wallet-outline',
+      'briefcase-outline'
+    ],
+    validators: [Validators.required]
+  }
 ];
