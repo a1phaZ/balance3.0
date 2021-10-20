@@ -11,6 +11,7 @@ import { CardComponent } from '../../ui/card/card.component';
 
 import { SwiperModule }    from 'swiper/angular';
 import { ModalPageModule } from '../modal/modal.module';
+import { BalancePipe }     from '../../pipes/balance.pipe';
 
 @NgModule({
   imports: [
@@ -21,6 +22,6 @@ import { ModalPageModule } from '../modal/modal.module';
     SwiperModule,
     ModalPageModule,
   ],
-	declarations: [MainPage, CardComponent],
+	declarations: [MainPage, CardComponent, BalancePipe],
 })
 export class MainPageModule {}
