@@ -5,10 +5,10 @@
   line-height: 18px;
   color: var(--modal-header-color);
 }
-
+//
 ::ng-deep.modal-button {
   height: 50px;
-  --border-radius: var(--radius);
+  //--border-radius: var(--radius);
   font-style: normal;
   font-weight: bold;
   font-size: 18px;
@@ -17,12 +17,24 @@
 
   --color: #FFFFFF;
 }
-
+//
 ::ng-deep.success-button {
-  --background: var(--button-success-background);
-  --box-shadow: var(--button-success-shadow);
-}
 
-::ng-deep.modal-footer {
-  padding: 0 20px 20px 20px;
+  --background: var(--button-success-background);
+  color: var(--font-color);
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 22px;
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.018em;
+
 }
+//
+//::ng-deep.modal-footer {
+//  padding: 0 20px 20px 20px;
+//}
+
+

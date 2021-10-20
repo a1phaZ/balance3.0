@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalService }             from '../../services/modal.service';
+import { ModalService }           from '../../services/modal.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-modal',
@@ -10,18 +11,34 @@ export class ModalPage implements OnInit {
   @Input() item: any;
   @Input() fields: any[];
   data: any;
+  form: FormGroup;
 
   // form: FormGroup;
 
-  constructor(private modalCtrl: ModalService) {
+  constructor(
+    private modalCtrl: ModalService,
+    private formBuilder: FormBuilder
+  ) {
   }
 
   ngOnInit() {
-    console.log(this.fields);
-    this.data = this.fields;
+    let formFields = {};
+    this.fields.forEach((field) => {
+      formFields = {...formFields, [field.name]: [null, [...field.validators]]};
+    });
+    this.form = this.formBuilder.group(formFields);
   }
 
-  dismissModal() {
-    this.modalCtrl.dismissModal(this.data);
+  dismissModal(data) {
+    this.modalCtrl.dismissModal(data);
+  }
+
+  onSubmit({title, balance, icons}) {
+    const data = {
+      title,
+      balance: +balance,
+      icon: icons
+    };
+    this.dismissModal(data);
   }
 }
