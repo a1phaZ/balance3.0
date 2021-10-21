@@ -6,6 +6,7 @@ import { ModalService }           from '../../services/modal.service';
 import { map }                    from 'rxjs/internal/operators';
 import { FieldsService }          from '../../services/fields.service';
 import { Validators }             from '@angular/forms';
+import { TransactionService }     from '../../services/transaction.service';
 
 SwiperCore.use([Pagination]);
 
@@ -20,6 +21,7 @@ export class MainPage implements OnInit {
 
   constructor(
     private cardService: CardService,
+    private transactionService: TransactionService,
     private modalCtrl: ModalService,
     private fields: FieldsService,
   ) {
@@ -31,8 +33,7 @@ export class MainPage implements OnInit {
         this.addCard(res.card);
       }
       if (res.transactions) {
-        // this.addCard(res.card);
-        console.log(res.transactions);
+        this.transactionService.add(res.transactions);
       }
     });
   }
