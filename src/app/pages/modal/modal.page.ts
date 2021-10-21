@@ -34,12 +34,7 @@ export class ModalPage implements OnInit {
     this.modalCtrl.dismissModal(data);
   }
 
-  onSubmit({title, balance, icons}) {
-    const data = {
-      title,
-      balance: +balance,
-      icon: icons
-    };
-    this.dismissModal({[this.type]: data});
+  onSubmit() {
+    this.dismissModal({[this.type]: this.form.value});
   }
 }
