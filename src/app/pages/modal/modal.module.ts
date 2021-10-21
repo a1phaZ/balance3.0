@@ -6,7 +6,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { ModalPageRoutingModule } from './modal-routing.module';
 
-import { ModalPage } from './modal.page';
+import { ModalPage }          from './modal.page';
+import { OptionByObjectPipe } from '../../pipes/option-by-object.pipe';
 
 @NgModule({
 	imports: [
@@ -16,6 +17,6 @@ import { ModalPage } from './modal.page';
 		ModalPageRoutingModule,
 		ReactiveFormsModule
 	],
-  declarations: [ModalPage],
+  declarations: [ModalPage, OptionByObjectPipe],
 })
 export class ModalPageModule {}

@@ -20,8 +20,8 @@
         <ion-item lines="full">
           <ion-label>{{field.title}}</ion-label>
           <ion-select placeholder="Select One" [ngClass]="'select-'+field.name" formControlName="{{field.name}}">
-            <ion-select-option *ngFor="let option of field.options" value="{{option}}" [ngClass]="'select-'+field.name+'-'+option">
-              <span>{{option}}<ion-icon [name]="option"></ion-icon></span>
+            <ion-select-option *ngFor="let option of field.options" value="{{option | optionByObject : 'id'}}">
+              <span>{{option | optionByObject : 'title'}}</span>
             </ion-select-option>
           </ion-select>
         </ion-item>
