@@ -40,6 +40,10 @@ const routes: Routes = [
     path: 'main',
     loadChildren: () => import('./pages/main/main.module').then( m => m.MainPageModule),
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'card-info',
+    loadChildren: () => import('./pages/card-info/card-info.module').then( m => m.CardInfoPageModule)
   }
 ];
 
