@@ -1,6 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title class="modal-header" (click)="dismissModal(null)">modal</ion-title>
+    <ion-buttons slot="start">
+      <ion-button color="dark" (click)="dismissModal(null)">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Создать элемент</ion-title>
   </ion-toolbar>
 </ion-header>
 
