@@ -6,6 +6,17 @@
 
 <ion-content>
   <div class="main-content">
+    <div class="header-container">
+      <div class="balance-block">
+        <div class="balance-block-title">Ваш баланс</div>
+        <div class="balance-block-sum">{{balance | toFixed : 2 | balance}}</div>
+      </div>
+      <div class="button-block">
+        <ion-button class="add-icon-button" fill="clear" (click)="addTransaction()">
+          <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
     <swiper #swiper [spaceBetween]="20" [slidesPerView]="2">
       <ng-template swiperSlide *ngFor="let card of cards"><app-card [title]="card.title" [balance]="card.balance" [icon]="card.icon"></app-card></ng-template>
       <ng-template swiperSlide><app-card title="Add money" balance="0" icon="add-outline" (click)="addCardClick()"></app-card> </ng-template>

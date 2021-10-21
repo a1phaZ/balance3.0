@@ -1,1 +1,42 @@
+.header-container {
+  margin-bottom: 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
+  .button-block{
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    font-size: 28px;
+
+    .add-icon-button {
+      --padding-start: 5px;
+      --padding-end: 5px;
+      --padding-top: 5px;
+      --padding-bottom: 5px;
+      --border-radius: 50%;
+      --color: var(--color);
+    }
+  }
+
+  .balance-block {
+    .balance-block-title {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 15px;
+      line-height: 18px;
+      color: var(--color);
+    }
+
+    .balance-block-sum {
+      font-style: normal;
+      font-weight: bold;
+      font-size: 25px;
+      line-height: 32px;
+      color: var(--color);
+    }
+  }
+
+}

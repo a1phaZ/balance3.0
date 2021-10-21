@@ -3,6 +3,8 @@ import SwiperCore, { Pagination } from 'swiper';
 import { CardService, ICard }     from '../../services/card.service';
 import { ModalPage }              from '../modal/modal.page';
 import { ModalService }           from '../../services/modal.service';
+import { map }                    from 'rxjs/internal/operators';
+import { FieldsService }          from '../../services/fields.service';
 import { Validators }             from '@angular/forms';
 
 SwiperCore.use([Pagination]);
@@ -14,60 +16,64 @@ SwiperCore.use([Pagination]);
 })
 export class MainPage implements OnInit {
   cards: ICard[];
+  balance: number;
 
   constructor(
     private cardService: CardService,
-    private modalCtrl: ModalService
+    private modalCtrl: ModalService,
+    private fields: FieldsService,
   ) {
     modalCtrl.modalData.subscribe((res) => {
       if (!res) {
         return;
       }
-      this.addCard(res);
+      if (res.card) {
+        this.addCard(res.card);
+      }
+      if (res.transactions) {
+        // this.addCard(res.card);
+        console.log(res.transactions);
+      }
     });
   }
 
   ngOnInit() {
-    this.cardService.getAll().subscribe(data => this.cards = data);
+    this.getList();
+    // this.cardService.getCard('as').subscribe(data => console.log(data));
+  }
+
+  getList() {
+    this.cardService.getAll().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({id: c.payload.doc.id, ...c.payload.doc.data()})
+        )
+      )
+    ).subscribe(data => {
+      this.cards = data;
+      this.balance = this.getSum(this.cards, 'balance');
+    });
   }
 
   addCard(card: ICard) {
-    this.cardService.addCard(card);
+    this.cardService.addCard({...card, date: +new Date()});
   }
 
   async addCardClick() {
-    // TODO Собирать данные из ввода
-    const params = {
-      fields
-    };
-    await this.modalCtrl.openModal(ModalPage, params);
+    await this.modalCtrl.openModal(ModalPage, this.fields.cardFields);
+  }
+
+  async addTransaction() {
+    const field = {name: 'itemFrom', type: 'select', title: 'Счет', options: [...this.cards], validators: [Validators.required]};
+    // console.log({fields: [field, ...this.fields.transactionFields.fields], type: this.fields.transactionFields.type });
+    await this.modalCtrl.openModal(
+      ModalPage,
+      {fields: [field, ...this.fields.transactionFields.fields], type: this.fields.transactionFields.type }
+    );
+  }
+
+  getSum(array, key) {
+    return array.reduce((acc, cur) => acc + cur[key], 0);
   }
 
 }
-
-const fields = [
-  {
-    type: 'text',
-    name: 'title',
-    title: 'Наименование',
-    validators: [Validators.required]
-  },
-  {
-    type: 'number',
-    name: 'balance',
-    title: 'Баланс',
-    validators: [Validators.required]
-  },
-  {
-    type: 'select',
-    name: 'icons',
-    title: 'Значек',
-    options: [
-      'card-outline',
-      'cash-outline',
-      'wallet-outline',
-      'briefcase-outline'
-    ],
-    validators: [Validators.required]
-  }
-];
