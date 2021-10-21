@@ -5,4 +5,5 @@ export default class Purchase {
   count = 0;
   sum: number;
   date: number;
+  userId: string;
 }
