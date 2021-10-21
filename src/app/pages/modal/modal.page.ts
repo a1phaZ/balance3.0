@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class ModalPage implements OnInit {
   @Input() item: any;
   @Input() fields: any[];
+  @Input() type: string;
   data: any;
   form: FormGroup;
 
@@ -39,6 +40,6 @@ export class ModalPage implements OnInit {
       balance: +balance,
       icon: icons
     };
-    this.dismissModal(data);
+    this.dismissModal({[this.type]: data});
   }
 }
