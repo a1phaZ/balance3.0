@@ -9,9 +9,10 @@ import { MainPageRoutingModule } from './main-routing.module';
 import { MainPage }      from './main.page';
 import { CardComponent } from '../../ui/card/card.component';
 
-import { SwiperModule }    from 'swiper/angular';
-import { ModalPageModule } from '../modal/modal.module';
-import { BalancePipe }     from '../../pipes/balance.pipe';
+import { SwiperModule }       from 'swiper/angular';
+import { ModalPageModule }    from '../modal/modal.module';
+import { BalancePipe }        from '../../pipes/balance.pipe';
+import { ToFixedPipe }        from '../../pipes/to-fixed.pipe';
 
 @NgModule({
   imports: [
@@ -22,6 +23,6 @@ import { BalancePipe }     from '../../pipes/balance.pipe';
     SwiperModule,
     ModalPageModule,
   ],
-	declarations: [MainPage, CardComponent, BalancePipe],
+	declarations: [MainPage, CardComponent, BalancePipe, ToFixedPipe],
 })
 export class MainPageModule {}
