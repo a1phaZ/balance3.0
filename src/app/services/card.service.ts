@@ -3,13 +3,14 @@ import { BehaviorSubject }                              from 'rxjs';
 import { map }                                          from 'rxjs/internal/operators';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { AuthenticationService }                        from './authentication.service';
+import { Card }                                         from '../models/card';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CardService {
-  cards: BehaviorSubject<ICard[]> = new BehaviorSubject<ICard[]>([]);
-  cardsListRef: AngularFirestoreCollection<ICard> = null;
+  cards: BehaviorSubject<Card[]> = new BehaviorSubject<Card[]>([]);
+  cardsListRef: AngularFirestoreCollection<Card> = null;
   private dbPath = '/cards';
 
   constructor(
@@ -23,22 +24,16 @@ export class CardService {
     return this.cardsListRef;
   }
 
-  addCard(data: ICard) {
-    return this.cardsListRef.add({...data, userId: this.auth.userId});
+  addCard(data: Card) {
+    this.cardsListRef.add({...data, userId: this.auth.userId});
+  }
+
+  patchCard(id: string, data: any) {
+    this.cardsListRef.doc(id).update(data);
   }
 
   getCard(id) {
     return this.cards.pipe(
       map((cards) => cards.find((card) => card.id === id)));
   }
-}
-
-export interface ICard {
-  id: string;
-  userId: string;
-  title: string;
-  balance: number;
-  operation: any[];
-  icon: string;
-  date: number;
 }

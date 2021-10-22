@@ -1,12 +1,14 @@
 import { Component, OnInit }      from '@angular/core';
 import SwiperCore, { Pagination } from 'swiper';
-import { CardService, ICard }     from '../../services/card.service';
+import { CardService }            from '../../services/card.service';
 import { ModalPage }              from '../modal/modal.page';
 import { ModalService }           from '../../services/modal.service';
 import { map }                    from 'rxjs/internal/operators';
 import { FieldsService }          from '../../services/fields.service';
 import { Validators }             from '@angular/forms';
 import { TransactionService }     from '../../services/transaction.service';
+import { Card }                   from '../../models/card';
+import { Transaction }            from '../../models/transaction';
 
 SwiperCore.use([Pagination]);
 
@@ -16,8 +18,10 @@ SwiperCore.use([Pagination]);
   styleUrls: ['./main.page.scss'],
 })
 export class MainPage implements OnInit {
-  cards: ICard[];
+  cards: Card[];
+  card: Card;
   balance: number;
+  transaction: Transaction;
 
   constructor(
     private cardService: CardService,
@@ -33,7 +37,8 @@ export class MainPage implements OnInit {
         this.addCard(res.card);
       }
       if (res.transactions) {
-        this.transactionService.add(res.transactions);
+        console.log(res.transactions);
+        this.addTransaction(res.transactions);
       }
     });
   }
@@ -56,17 +61,28 @@ export class MainPage implements OnInit {
     });
   }
 
-  addCard(card: ICard) {
-    this.cardService.addCard({...card, date: +new Date()});
+  addCard(card: Card) {
+    this.card = new Card();
+    this.card = {...card, balance: +card.balance, date: +new Date()};
+    this.cardService.addCard({...this.card});
+  }
+
+  addTransaction(transaction: Transaction) {
+    this.transaction = new Transaction(transaction);
+    this.transactionService.add(this.transaction)
+      .then((doc: Transaction) => {
+        const {sum, id, cardId} = doc;
+        // this.cardService.patchCard(cardId, )
+      })
+      .catch(err => console.log(err));
   }
 
   async addCardClick() {
     await this.modalCtrl.openModal(ModalPage, this.fields.cardFields);
   }
 
-  async addTransaction() {
-    const field = {name: 'itemFrom', type: 'select', title: 'Счет', options: [...this.cards], validators: [Validators.required]};
-    // console.log({fields: [field, ...this.fields.transactionFields.fields], type: this.fields.transactionFields.type });
+  async addTransactionClick() {
+    const field = {name: 'cardId', type: 'select', title: 'Счет', options: [...this.cards], validators: [Validators.required]};
     await this.modalCtrl.openModal(
       ModalPage,
       {fields: [field, ...this.fields.transactionFields.fields], type: this.fields.transactionFields.type }

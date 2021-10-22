@@ -35,6 +35,7 @@ export class ModalPage implements OnInit {
   }
 
   onSubmit() {
+    console.log({[this.type]: this.form.value});
     this.dismissModal({[this.type]: this.form.value});
   }
 }
