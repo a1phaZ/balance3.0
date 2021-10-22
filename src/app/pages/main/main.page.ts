@@ -37,7 +37,6 @@ export class MainPage implements OnInit {
         this.addCard(res.card);
       }
       if (res.transactions) {
-        console.log(res.transactions);
         this.addTransaction(res.transactions);
       }
     });
@@ -70,9 +69,10 @@ export class MainPage implements OnInit {
   addTransaction(transaction: Transaction) {
     this.transaction = new Transaction(transaction);
     this.transactionService.add(this.transaction)
-      .then((doc: Transaction) => {
-        const {sum, id, cardId} = doc;
-        // this.cardService.patchCard(cardId, )
+      .then(async (doc: Transaction) => {
+        const {sum, income, cardId} = doc;
+        const card = await this.cardService.getCard(cardId);
+        this.cardService.patchCard(cardId, {balance: card.balance + (income ? 1 : -1)*sum});
       })
       .catch(err => console.log(err));
   }

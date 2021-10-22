@@ -1,6 +1,5 @@
 import { Injectable }                                   from '@angular/core';
 import { BehaviorSubject }                              from 'rxjs';
-import { map }                                          from 'rxjs/internal/operators';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { AuthenticationService }                        from './authentication.service';
 import { Card }                                         from '../models/card';
@@ -32,8 +31,8 @@ export class CardService {
     this.cardsListRef.doc(id).update(data);
   }
 
-  getCard(id) {
-    return this.cards.pipe(
-      map((cards) => cards.find((card) => card.id === id)));
+  getCard(id): Promise<Card> {
+    return this.cardsListRef.doc(id).ref.get()
+      .then(doc => new Promise<Card>(resolve => resolve(doc.data())));
   }
 }
