@@ -15,14 +15,18 @@ import { BalancePipe }        from '../../pipes/balance.pipe';
 import { ToFixedPipe }        from '../../pipes/to-fixed.pipe';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    MainPageRoutingModule,
-    SwiperModule,
-    ModalPageModule,
-  ],
+	imports: [
+		CommonModule,
+		FormsModule,
+		IonicModule,
+		MainPageRoutingModule,
+		SwiperModule,
+		ModalPageModule,
+	],
 	declarations: [MainPage, CardComponent, BalancePipe, ToFixedPipe],
+	exports: [
+		CardComponent,
+		BalancePipe
+	]
 })
 export class MainPageModule {}

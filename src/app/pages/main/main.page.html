@@ -18,7 +18,7 @@
       </div>
     </div>
     <swiper #swiper [spaceBetween]="20" [slidesPerView]="2">
-      <ng-template swiperSlide *ngFor="let card of cards"><app-card [title]="card.title" [balance]="card.balance" [icon]="card.icons"></app-card></ng-template>
+      <ng-template swiperSlide *ngFor="let card of cards"><app-card [title]="card.title" [balance]="card.balance" [icon]="card.icons" (click)="onCardDetailsClick(card.id)"></app-card></ng-template>
       <ng-template swiperSlide><app-card title="Add money" balance="0" icon="add-outline" (click)="addCardClick()"></app-card> </ng-template>
     </swiper>
   </div>

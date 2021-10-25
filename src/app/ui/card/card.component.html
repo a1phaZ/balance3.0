@@ -1,9 +1,10 @@
-<div class="card">
+<div class="card" [ngClass]="full ? 'card-full' : null">
   <div class="card-logo">
     <ion-icon name="{{icon}}"></ion-icon>
+    <div *ngIf="full" class="card-sum">{{balance | balance}}</div>
   </div>
   <div class="card-description">
     <div class="card-title">{{title}}</div>
-    <div class="card-sum">{{balance | balance}}</div>
+    <div *ngIf="!full" class="card-sum">{{balance | balance}}</div>
   </div>
 </div>

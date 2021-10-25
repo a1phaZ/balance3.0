@@ -1,0 +1,59 @@
+.transaction {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding-right: 24px;
+
+  .info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .transaction-icon{
+      width: 30px;
+      height: 30px;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      border-radius: 50%;
+
+      background-color: #B2D0CE;
+      color: #000000;
+      margin-right: 1em;
+
+      &.income{
+        background-color: #F2FE8D;
+      }
+    }
+
+    .transaction-title-block {
+      .title {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        margin: 0;
+      }
+      .tags {
+        margin: 0;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 18px;
+
+        letter-spacing: 0.008em;
+
+        color: #79767D;
+      }
+    }
+  }
+  .balance{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    /* identical to box height, or 125% */
+
+    text-align: right;
+  }
+}

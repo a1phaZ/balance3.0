@@ -42,7 +42,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'card-info',
+    path: 'card/:id',
     loadChildren: () => import('./pages/card-info/card-info.module').then( m => m.CardInfoPageModule)
   }
 ];

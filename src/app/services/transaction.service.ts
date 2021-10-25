@@ -25,9 +25,18 @@ export class TransactionService {
     return this.transactionsListRef;
   }
 
+  getByCardId(id) {
+    return this.transactionsListRef.ref.where('cardId', '==', id).orderBy('date', 'desc').get()
+      .then(list => {
+        const docList = [];
+        list.forEach(doc => docList.push(doc.data()));
+        return docList;
+      });
+  }
+
   add(data: Transaction) {
     return this.transactionsListRef.add({...data, userId: this.auth.userId})
-      .then(doc => new Promise((resolve, reject) => {
+      .then(doc => new Promise((resolve) => {
         doc.onSnapshot((d) => {
           resolve(d.data());
         });

@@ -9,6 +9,7 @@ import { Validators }             from '@angular/forms';
 import { TransactionService }     from '../../services/transaction.service';
 import { Card }                   from '../../models/card';
 import { Transaction }            from '../../models/transaction';
+import { NavController }          from '@ionic/angular';
 
 SwiperCore.use([Pagination]);
 
@@ -28,6 +29,7 @@ export class MainPage implements OnInit {
     private transactionService: TransactionService,
     private modalCtrl: ModalService,
     private fields: FieldsService,
+    private navCtrl: NavController,
   ) {
     modalCtrl.modalData.subscribe((res) => {
       if (!res) {
@@ -93,4 +95,7 @@ export class MainPage implements OnInit {
     return array.reduce((acc, cur) => acc + cur[key], 0);
   }
 
+  onCardDetailsClick(id: string) {
+    this.navCtrl.navigateForward(`/card/${id}`);
+  }
 }

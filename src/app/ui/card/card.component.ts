@@ -9,9 +9,12 @@ export class CardComponent implements OnInit {
   @Input() icon = 'card-outline';
   @Input() title: string;
   @Input() balance = 0;
+  @Input() full = false;
 
-  constructor() { }
+  constructor() {
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
 }

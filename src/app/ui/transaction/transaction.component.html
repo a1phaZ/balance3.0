@@ -1,0 +1,16 @@
+<ion-item>
+  <div class="transaction">
+    <div class="info">
+      <div [ngClass]="transaction.income ? 'income' : null" class="transaction-icon">
+        <ion-icon name="{{transaction.income ? 'trending-up-outline' : 'trending-down-outline'}}"></ion-icon>
+      </div>
+      <div class="transaction-title-block">
+        <p class="title">{{transaction.title}}</p>
+        <p class="tags">{{transaction.tags.join(' ')}}</p>
+      </div>
+    </div>
+    <div class="balance">
+      {{transaction.income ? '+' : '-'}}{{transaction.sum | balance}}
+    </div>
+  </div>
+</ion-item>

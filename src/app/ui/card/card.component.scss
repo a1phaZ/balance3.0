@@ -29,4 +29,42 @@
       color: #272A32;
     }
   }
+
+  &.card-full {
+    width: 100%;
+
+    .card-logo {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      font-style: normal;
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 22px;
+      /* identical to box height, or 110% */
+
+      align-items: center;
+      text-align: right;
+      letter-spacing: 0.008em;
+
+      color: #272A32;
+    }
+
+    .card-description{
+      .card-title {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 15px;
+        line-height: 22px;
+        /* identical to box height, or 147% */
+
+        display: flex;
+        align-items: center;
+        letter-spacing: 0.008em;
+
+        color: #272A32;
+      }
+    }
+  }
 }
