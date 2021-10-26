@@ -22,7 +22,6 @@ export class MainPage implements OnInit {
   cards: Card[];
   card: Card;
   balance: number;
-  transaction: Transaction;
 
   constructor(
     private cardService: CardService,
@@ -69,11 +68,14 @@ export class MainPage implements OnInit {
   }
 
   addTransaction(transaction: Transaction) {
-    this.transaction = new Transaction(transaction);
-    this.transactionService.add(this.transaction)
+    const _transaction = new Transaction(transaction);
+    this.transactionService.add(_transaction)
       .then(async (doc: Transaction) => {
         const {sum, income, cardId} = doc;
-        const card = await this.cardService.getCard(cardId);
+        let card: Card;
+        this.cardService.getCard(cardId).snapshotChanges().pipe(
+          map(changes => changes.payload)
+        ).subscribe(_doc => card = _doc.data());
         this.cardService.patchCard(cardId, {balance: card.balance + (income ? 1 : -1)*sum});
       })
       .catch(err => console.log(err));

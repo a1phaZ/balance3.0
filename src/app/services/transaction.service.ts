@@ -26,12 +26,7 @@ export class TransactionService {
   }
 
   getByCardId(id) {
-    return this.transactionsListRef.ref.where('cardId', '==', id).orderBy('date', 'desc').get()
-      .then(list => {
-        const docList = [];
-        list.forEach(doc => docList.push(doc.data()));
-        return docList;
-      });
+    return this.transactionsListRef.ref.where('cardId', '==', id).orderBy('date', 'desc');
   }
 
   add(data: Transaction) {

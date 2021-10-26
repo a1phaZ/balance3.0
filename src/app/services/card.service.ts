@@ -31,8 +31,7 @@ export class CardService {
     this.cardsListRef.doc(id).update(data);
   }
 
-  getCard(id): Promise<Card> {
-    return this.cardsListRef.doc(id).ref.get()
-      .then(doc => new Promise<Card>(resolve => resolve(doc.data())));
+  getCard(id) {
+    return this.cardsListRef.doc(id);
   }
 }
