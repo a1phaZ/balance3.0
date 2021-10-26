@@ -13,6 +13,7 @@ import { SwiperModule }       from 'swiper/angular';
 import { ModalPageModule }    from '../modal/modal.module';
 import { BalancePipe }        from '../../pipes/balance.pipe';
 import { ToFixedPipe }        from '../../pipes/to-fixed.pipe';
+import { AddButtonComponent } from '../../ui/add-button/add-button.component';
 
 @NgModule({
 	imports: [
@@ -23,10 +24,11 @@ import { ToFixedPipe }        from '../../pipes/to-fixed.pipe';
 		SwiperModule,
 		ModalPageModule,
 	],
-	declarations: [MainPage, CardComponent, BalancePipe, ToFixedPipe],
-	exports: [
-		CardComponent,
-		BalancePipe
-	]
+	declarations: [MainPage, CardComponent, BalancePipe, ToFixedPipe, AddButtonComponent],
+  exports: [
+    CardComponent,
+    BalancePipe,
+    AddButtonComponent
+  ]
 })
 export class MainPageModule {}

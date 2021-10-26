@@ -10,15 +10,6 @@
     display: flex;
     align-items: center;
     font-size: 28px;
-
-    .add-icon-button {
-      --padding-start: 5px;
-      --padding-end: 5px;
-      --padding-top: 5px;
-      --padding-bottom: 5px;
-      --border-radius: 50%;
-      --color: var(--color);
-    }
   }
 
   .balance-block {

@@ -15,9 +15,7 @@
         </div>
       </div>
       <div class="button-block" *ngIf="balance && cards.length !== 0">
-        <ion-button class="add-icon-button" fill="clear" (click)="addTransactionClick()">
-          <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
-        </ion-button>
+        <app-add-button (addClick)="addTransactionClick()"></app-add-button>
       </div>
     </div>
     <swiper #swiper [spaceBetween]="20" [slidesPerView]="2">
