@@ -44,11 +44,15 @@ export class CardInfoPage implements OnInit {
       this.cardService.getCard(this.cardId).snapshotChanges().pipe(
         map(changes => changes.payload)
       ).subscribe(doc => this.card = doc.data());
-      this.transactionService.getByCardId(this.cardId).onSnapshot({
-        next: (data) => {
-          this.transactions = data.docs.map((item) => item.data());
-          this.reducedTransactions = this.reduceTransactions(this.transactions);
-        }
+      this.transactionService.getByCardId(this.cardId).snapshotChanges().pipe(
+        map(changes =>
+          changes.map(c =>
+            ({id: c.payload.doc.id, ...c.payload.doc.data()})
+          )
+        )
+      ).subscribe(data => {
+        this.transactions = data;
+        this.reducedTransactions = this.reduceTransactions(this.transactions);
       });
     });
   }
