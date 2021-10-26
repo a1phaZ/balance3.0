@@ -16,7 +16,7 @@ export class Transaction {
     this.price = +price;
     this.count = +count;
     this.income = income === 'true';
-    this.tags = tags.split(' ');
+    this.tags = !!tags ? tags.split(' ') : [];
     this.cardId = cardId;
     this.sum = this.price * this.count;
   }
