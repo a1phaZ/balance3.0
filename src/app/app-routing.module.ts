@@ -6,7 +6,7 @@ import { MAIN_PAGE }                               from './shared/constants';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: MAIN_PAGE,
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
