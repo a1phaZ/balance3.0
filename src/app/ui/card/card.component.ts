@@ -10,6 +10,7 @@ export class CardComponent implements OnInit {
   @Input() title: string;
   @Input() balance = 0;
   @Input() full = false;
+  @Input() loading = false;
 
   constructor() {
   }

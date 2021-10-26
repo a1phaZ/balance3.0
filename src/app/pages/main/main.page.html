@@ -9,9 +9,12 @@
     <div class="header-container">
       <div class="balance-block">
         <div class="balance-block-title">Ваш баланс</div>
-        <div class="balance-block-sum">{{balance | toFixed : 2 | balance}}</div>
+        <div *ngIf="balance" class="balance-block-sum">{{balance | toFixed : 2 | balance}}</div>
+        <div *ngIf="!balance" class="balance-block-sum">
+          <ion-spinner name="crescent"></ion-spinner>
+        </div>
       </div>
-      <div class="button-block">
+      <div class="button-block" *ngIf="balance && cards.length !== 0">
         <ion-button class="add-icon-button" fill="clear" (click)="addTransactionClick()">
           <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
         </ion-button>
@@ -19,7 +22,9 @@
     </div>
     <swiper #swiper [spaceBetween]="20" [slidesPerView]="2">
       <ng-template swiperSlide *ngFor="let card of cards"><app-card [title]="card.title" [balance]="card.balance" [icon]="card.icons" (click)="onCardDetailsClick(card.id)"></app-card></ng-template>
-      <ng-template swiperSlide><app-card title="Add money" balance="0" icon="add-outline" (click)="addCardClick()"></app-card> </ng-template>
+      <ng-template swiperSlide>
+        <app-card title="Add money" balance="0" icon="add-outline" (click)="addCardClick()" [loading]="!cards"></app-card>
+      </ng-template>
     </swiper>
   </div>
 </ion-content>
