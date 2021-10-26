@@ -1,7 +1,10 @@
 {
   "name": "Balance3.0",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {
+      "enabled": false
+    },
+    "cordova": {}
   },
   "type": "angular"
 }
