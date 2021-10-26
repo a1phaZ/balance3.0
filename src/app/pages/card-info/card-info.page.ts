@@ -4,6 +4,11 @@ import { ActivatedRoute }     from '@angular/router';
 import { Transaction }        from '../../models/transaction';
 import { Card }               from '../../models/card';
 import { TransactionService } from '../../services/transaction.service';
+import { ModalService }       from '../../services/modal.service';
+import { ModalPage }          from '../modal/modal.page';
+import { FieldsService }      from '../../services/fields.service';
+import { compareDate }        from '../../shared/handlers';
+import { map }                from 'rxjs/internal/operators';
 
 @Component({
   selector: 'app-card-info',
@@ -19,30 +24,62 @@ export class CardInfoPage implements OnInit {
   constructor(
     private cardService: CardService,
     private transactionService: TransactionService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private modalCtrl: ModalService,
+    private fields: FieldsService,
   ) {
+    modalCtrl.modalData.subscribe((res) => {
+      if (!res) {
+        return;
+      }
+      if (res.transactions) {
+        this.addTransaction(res.transactions);
+      }
+    });
   }
 
   ngOnInit() {
     this.route.params.subscribe(async params => {
       this.cardId = params.id;
-      this.card = await this.cardService.getCard(this.cardId);
-      this.transactions = await this.transactionService.getByCardId(this.cardId);
-      this.reducedTransactions = this.reduceTransactions(this.transactions);
+      this.cardService.getCard(this.cardId).snapshotChanges().pipe(
+        map(changes => changes.payload)
+      ).subscribe(doc => this.card = doc.data());
+      this.transactionService.getByCardId(this.cardId).onSnapshot({
+        next: (data) => {
+          this.transactions = data.docs.map((item) => item.data());
+          this.reducedTransactions = this.reduceTransactions(this.transactions);
+        }
+      });
     });
+  }
+
+  async onAddClick() {
+    await this.modalCtrl.openModal(
+      ModalPage,
+      this.fields.transactionFields
+    );
+  }
+
+  addTransaction(transaction: Transaction) {
+    const _transaction = new Transaction({...transaction, cardId: this.cardId});
+    this.transactionService.add(_transaction)
+      .then(async (doc: Transaction) => {
+        const {sum, income, cardId} = doc;
+        this.cardService.patchCard(cardId, {balance: this.card.balance + (income ? 1 : -1) * sum});
+      })
+      .catch(err => console.log(err));
   }
 
   private reduceTransactions(transactions: Transaction[]): IReducedTransactions[] {
     return transactions.reduce((acc: IReducedTransactions[], cur) => {
-      const date = Math.round(cur.date / 10000000) * 10000000;
       if (acc.length === 0) {
-        return [{date, transactions: [{...cur}]}];
+        return [{date: cur.date, transactions: [{...cur}]}];
       }
-      if (acc[acc.length - 1].date === date) {
+      if (compareDate(acc[acc.length - 1].date, cur.date)) {
         acc[acc.length - 1].transactions = [...acc[acc.length - 1].transactions, {...cur}];
         return acc;
       }
-      return [...acc, {date, transactions: [{...cur}]}];
+      return [...acc, {date: cur.date, transactions: [{...cur}]}];
     }, []);
   }
 }
