@@ -16,7 +16,8 @@
       <div class="list-header">
         <span>Операции</span>
         <div class="action-buttons-block">
-          <app-add-button (addClick)="onAddClick()"></app-add-button>
+          <app-action-button (buttonClick)="onTransferClick()" icon="repeat-outline"></app-action-button>
+          <app-action-button (buttonClick)="onAddClick()"></app-action-button>
         </div>
       </div>
       <ion-list lines="none">

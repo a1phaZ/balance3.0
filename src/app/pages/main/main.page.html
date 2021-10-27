@@ -15,7 +15,8 @@
         </div>
       </div>
       <div class="button-block" *ngIf="balance && cards.length !== 0">
-        <app-add-button (addClick)="addTransactionClick()"></app-add-button>
+        <app-action-button (buttonClick)="onTransferClick()" icon="repeat-outline"></app-action-button>
+        <app-action-button (buttonClick)="addTransactionClick()"></app-action-button>
       </div>
     </div>
     <swiper #swiper [spaceBetween]="20" [slidesPerView]="2">

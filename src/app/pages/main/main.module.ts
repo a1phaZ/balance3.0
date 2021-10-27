@@ -12,8 +12,8 @@ import { CardComponent } from '../../ui/card/card.component';
 import { SwiperModule }       from 'swiper/angular';
 import { ModalPageModule }    from '../modal/modal.module';
 import { BalancePipe }        from '../../pipes/balance.pipe';
-import { ToFixedPipe }        from '../../pipes/to-fixed.pipe';
-import { AddButtonComponent } from '../../ui/add-button/add-button.component';
+import { ToFixedPipe }           from '../../pipes/to-fixed.pipe';
+import { ActionButtonComponent } from '../../ui/add-button/action-button.component';
 
 @NgModule({
 	imports: [
@@ -24,11 +24,11 @@ import { AddButtonComponent } from '../../ui/add-button/add-button.component';
 		SwiperModule,
 		ModalPageModule,
 	],
-	declarations: [MainPage, CardComponent, BalancePipe, ToFixedPipe, AddButtonComponent],
+	declarations: [MainPage, CardComponent, BalancePipe, ToFixedPipe, ActionButtonComponent],
   exports: [
     CardComponent,
     BalancePipe,
-    AddButtonComponent
+    ActionButtonComponent
   ]
 })
 export class MainPageModule {}
