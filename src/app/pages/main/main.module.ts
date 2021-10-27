@@ -9,21 +9,25 @@ import { MainPageRoutingModule } from './main-routing.module';
 import { MainPage }      from './main.page';
 import { CardComponent } from '../../ui/card/card.component';
 
-import { SwiperModule }       from 'swiper/angular';
-import { ModalPageModule }    from '../modal/modal.module';
-import { BalancePipe }        from '../../pipes/balance.pipe';
-import { ToFixedPipe }           from '../../pipes/to-fixed.pipe';
-import { ActionButtonComponent } from '../../ui/add-button/action-button.component';
+import { SwiperModule }           from 'swiper/angular';
+import { ModalPageModule }        from '../modal/modal.module';
+import { BalancePipe }            from '../../pipes/balance.pipe';
+import { ToFixedPipe }            from '../../pipes/to-fixed.pipe';
+import { ActionButtonComponent }  from '../../ui/add-button/action-button.component';
+import { ContainerModule }        from '../../ui/container/container.module';
+import { ContentContainerModule } from '../../ui/content-container/content-container.module';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		FormsModule,
-		IonicModule,
-		MainPageRoutingModule,
-		SwiperModule,
-		ModalPageModule,
-	],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    MainPageRoutingModule,
+    SwiperModule,
+    ModalPageModule,
+    ContainerModule,
+    ContentContainerModule,
+  ],
 	declarations: [MainPage, CardComponent, BalancePipe, ToFixedPipe, ActionButtonComponent],
   exports: [
     CardComponent,

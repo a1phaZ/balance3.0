@@ -8,11 +8,11 @@
 </ion-header>
 
 <ion-content>
-  <div class="container">
+  <app-container class="container">
     <div class="card-section">
       <app-card *ngIf="card" [full]="true" [icon]="card.icons" [balance]="card.balance" [title]="card.title"></app-card>
     </div>
-    <div *ngIf="card" class="transactions-section">
+    <app-content-container *ngIf="card" class="transactions-section">
       <div class="list-header">
         <span>Операции</span>
         <div class="action-buttons-block">
@@ -30,6 +30,6 @@
           </ng-container>
         </ng-container>
       </ion-list>
-    </div>
-  </div>
+    </app-content-container>
+  </app-container>
 </ion-content>

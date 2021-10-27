@@ -5,25 +5,31 @@
 </ion-header>
 
 <ion-content>
-  <div class="main-content">
-    <div class="header-container">
-      <div class="balance-block">
-        <div class="balance-block-title">Ваш баланс</div>
-        <div *ngIf="balance" class="balance-block-sum">{{balance | toFixed : 2 | balance}}</div>
-        <div *ngIf="!balance" class="balance-block-sum">
-          <ion-spinner name="crescent"></ion-spinner>
+  <app-container>
+
+    <div class="main-content">
+      <div class="header-container">
+        <div class="balance-block">
+          <div class="balance-block-title">Ваш баланс</div>
+          <div *ngIf="balance" class="balance-block-sum">{{balance | toFixed : 2 | balance}}</div>
+          <div *ngIf="!balance" class="balance-block-sum">
+            <ion-spinner name="crescent"></ion-spinner>
+          </div>
+        </div>
+        <div class="button-block" *ngIf="balance && cards.length !== 0">
+          <app-action-button (buttonClick)="onTransferClick()" icon="repeat-outline"></app-action-button>
+          <app-action-button (buttonClick)="addTransactionClick()"></app-action-button>
         </div>
       </div>
-      <div class="button-block" *ngIf="balance && cards.length !== 0">
-        <app-action-button (buttonClick)="onTransferClick()" icon="repeat-outline"></app-action-button>
-        <app-action-button (buttonClick)="addTransactionClick()"></app-action-button>
-      </div>
+      <swiper #swiper [spaceBetween]="20" [slidesPerView]="2">
+        <ng-template swiperSlide *ngFor="let card of cards"><app-card [title]="card.title" [balance]="card.balance" [icon]="card.icons" (click)="onCardDetailsClick(card.id)"></app-card></ng-template>
+        <ng-template swiperSlide>
+          <app-card title="Add money" balance="0" icon="add-outline" (click)="addCardClick()" [loading]="!cards"></app-card>
+        </ng-template>
+      </swiper>
     </div>
-    <swiper #swiper [spaceBetween]="20" [slidesPerView]="2">
-      <ng-template swiperSlide *ngFor="let card of cards"><app-card [title]="card.title" [balance]="card.balance" [icon]="card.icons" (click)="onCardDetailsClick(card.id)"></app-card></ng-template>
-      <ng-template swiperSlide>
-        <app-card title="Add money" balance="0" icon="add-outline" (click)="addCardClick()" [loading]="!cards"></app-card>
-      </ng-template>
-    </swiper>
-  </div>
+    <app-content-container class="container">
+<!--      TODO Fill elements-->
+    </app-content-container>
+  </app-container>
 </ion-content>
