@@ -36,7 +36,7 @@ export class CardInfoPage implements OnInit {
         this.addTransaction(res.transactions);
       }
       if (res.transfer) {
-        CardInfoPage.transferMoney(res.transfer);
+        this.transferMoney(res.transfer);
       }
     });
   }
