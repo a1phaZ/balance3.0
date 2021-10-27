@@ -21,7 +21,10 @@ SwiperCore.use([Pagination]);
 export class MainPage implements OnInit {
   cards: Card[];
   card: Card;
+  transactions: Transaction[];
   balance: number;
+  transactionsInSum: number;
+  transactionsOutSum: number;
 
   constructor(
     private cardService: CardService,
@@ -48,19 +51,38 @@ export class MainPage implements OnInit {
 
   ngOnInit() {
     this.getList();
-    // this.cardService.getCard('as').subscribe(data => console.log(data));
   }
 
   getList() {
     this.cardService.getAll().snapshotChanges().pipe(
       map(changes =>
-        changes.map(c =>
-          ({id: c.payload.doc.id, ...c.payload.doc.data()})
-        )
+        changes.map(getListFromChanges())
       )
     ).subscribe(data => {
       this.cards = data;
       this.balance = this.getSum(this.cards, 'balance');
+    });
+    this.transactionService.getAll().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(getListFromChanges())
+      )
+    ).subscribe(data => {
+      let _in = 0;
+      let _out = 0;
+      data.forEach(({income, sum, transfer}) => {
+        if (transfer) {
+          return;
+        }
+        if (income) {
+          _in += sum;
+        } else {
+          _out += sum;
+        }
+      });
+      this.transactionsInSum = _in;
+      this.transactionsOutSum = _out;
+      console.log(_in, _out);
+      this.transactions = data;
     });
   }
 
@@ -112,3 +134,5 @@ export class MainPage implements OnInit {
     this.cardService.transfer(transfer);
   }
 }
+
+const getListFromChanges = () => c => ({id: c.payload.doc.id, ...c.payload.doc.data()});

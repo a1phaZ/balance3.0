@@ -29,6 +29,21 @@
       </swiper>
     </div>
     <app-content-container class="container">
+      <div class="stats-balance-section">
+        <div class="stats-block">
+          <div class="stats-title-block">
+            <span><app-transaction-icon [income]="true"></app-transaction-icon>Приход</span>
+            <span><app-transaction-icon [income]="false"></app-transaction-icon>Расход</span>
+          </div>
+          <div class="stats-value-block">
+            <span>{{transactionsInSum | balance}}</span>
+            <span>{{transactionsOutSum | balance}}</span>
+          </div>
+        </div>
+        <div class="stats-total-block">
+          <span>Баланс: <strong>{{transactionsInSum - transactionsOutSum | balance}}</strong></span>
+        </div>
+      </div>
 <!--      TODO Fill elements-->
     </app-content-container>
   </app-container>

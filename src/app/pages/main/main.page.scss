@@ -31,3 +31,43 @@
   }
 
 }
+
+.stats-balance-section {
+  background: rgba(33, 33, 33, 0.7);
+  backdrop-filter: blur(47px);
+  /* Note: backdrop-filter has minimal browser support */
+
+  border-radius: 26px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  margin: 20px;
+
+  .stats-block {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .stats-title-block, .stats-value-block{
+      span {
+        line-height: 30px;
+        margin-bottom: 8px;
+        display: flex;
+        flex-direction: row;
+        //justify-content: space-between;
+        align-items: center;
+      }
+    }
+    .stats-value-block{
+      span {
+        display: block;
+        text-align: right;
+      }
+    }
+  }
+  .stats-total-block{
+    text-align: right;
+  }
+}

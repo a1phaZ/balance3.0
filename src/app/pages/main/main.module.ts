@@ -16,6 +16,7 @@ import { ToFixedPipe }            from '../../pipes/to-fixed.pipe';
 import { ActionButtonComponent }  from '../../ui/add-button/action-button.component';
 import { ContainerModule }        from '../../ui/container/container.module';
 import { ContentContainerModule } from '../../ui/content-container/content-container.module';
+import { TransactionIconModule }  from '../../ui/transaction-icon/transaction-icon.module';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { ContentContainerModule } from '../../ui/content-container/content-conta
     ModalPageModule,
     ContainerModule,
     ContentContainerModule,
+    TransactionIconModule,
   ],
 	declarations: [MainPage, CardComponent, BalancePipe, ToFixedPipe, ActionButtonComponent],
   exports: [

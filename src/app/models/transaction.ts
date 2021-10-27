@@ -9,9 +9,10 @@ export class Transaction {
   cardId: string;
   date: number = +new Date();
   sum: number;
+  transfer?: boolean;
 
   constructor(transaction) {
-    const {title, price, count, income, tags, cardId} = transaction;
+    const {title, price, count, income, tags, cardId, transfer = false} = transaction;
     this.title = title;
     this.price = +price;
     this.count = +count;
@@ -19,5 +20,6 @@ export class Transaction {
     this.tags = !!tags ? tags.split(' ') : [];
     this.cardId = cardId;
     this.sum = this.price * this.count;
+    this.transfer = transfer;
   }
 }

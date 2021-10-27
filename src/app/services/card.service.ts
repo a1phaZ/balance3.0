@@ -59,7 +59,8 @@ export class CardService {
         count: 1,
         income: 'false',
         tags: null,
-        cardId: fromCard.id
+        cardId: fromCard.id,
+        transfer: true,
       }
     );
     const toTransaction: Transaction = new Transaction(
@@ -69,7 +70,8 @@ export class CardService {
         count: 1,
         income: 'true',
         tags: null,
-        cardId: toCard.id
+        cardId: toCard.id,
+        transfer: true,
       }
     );
 

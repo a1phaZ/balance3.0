@@ -12,6 +12,7 @@ import { DateTransformPipe }      from '../../pipes/date-transform.pipe';
 import { TransactionComponent }   from '../../ui/transaction/transaction.component';
 import { ContainerModule }        from '../../ui/container/container.module';
 import { ContentContainerModule } from '../../ui/content-container/content-container.module';
+import { TransactionIconModule }  from '../../ui/transaction-icon/transaction-icon.module';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { ContentContainerModule } from '../../ui/content-container/content-conta
     CardInfoPageRoutingModule,
     MainPageModule,
     ContainerModule,
-    ContentContainerModule
+    ContentContainerModule,
+    TransactionIconModule
   ],
   exports: [
   ],
