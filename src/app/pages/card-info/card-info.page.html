@@ -23,7 +23,7 @@
       <ion-list lines="none">
         <ng-container *ngFor="let rT of reducedTransactions">
           <ion-item>
-            <span>{{rT.date | dateTransform}}</span>
+            <span class="transactions-date">{{rT.date | dateTransform}}</span>
           </ion-item>
           <ng-container *ngFor="let t of rT.transactions">
             <app-transaction [transaction]="t"></app-transaction>
