@@ -40,6 +40,9 @@ export class MainPage implements OnInit {
       if (res.transactions) {
         this.addTransaction(res.transactions);
       }
+      if (res.transfer) {
+        this.transferMoney(res.transfer);
+      }
     });
   }
 
@@ -99,5 +102,13 @@ export class MainPage implements OnInit {
 
   onCardDetailsClick(id: string) {
     this.navCtrl.navigateForward(`/card/${id}`);
+  }
+
+  async onTransferClick() {
+    await this.modalCtrl.openModal(ModalPage, this.fields.transferFields);
+  }
+
+  transferMoney(transfer) {
+    this.cardService.transfer(transfer);
   }
 }

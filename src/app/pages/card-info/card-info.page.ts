@@ -35,6 +35,9 @@ export class CardInfoPage implements OnInit {
       if (res.transactions) {
         this.addTransaction(res.transactions);
       }
+      if (res.transfer) {
+        CardInfoPage.transferMoney(res.transfer);
+      }
     });
   }
 
@@ -72,6 +75,14 @@ export class CardInfoPage implements OnInit {
         this.cardService.patchCard(cardId, {balance: this.card.balance + (income ? 1 : -1) * sum});
       })
       .catch(err => console.log(err));
+  }
+
+  async onTransferClick() {
+    await this.modalCtrl.openModal(ModalPage, this.fields.transferFields);
+  }
+
+  transferMoney(transfer: any[]) {
+    console.log(transfer);
   }
 
   private reduceTransactions(transactions: Transaction[]): IReducedTransactions[] {

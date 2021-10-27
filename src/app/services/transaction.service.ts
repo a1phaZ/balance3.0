@@ -15,7 +15,10 @@ export class TransactionService {
     private db: AngularFirestore,
     private auth: AuthenticationService
   ) {
-
+    this.transactionsListRef = this.db.collection(
+      this.dbPath,
+      ref => ref.where('userId', '==', this.auth.userId).orderBy('date', 'desc')
+    );
   }
 
   getAll() {
