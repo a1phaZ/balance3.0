@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
-import { Validators } from '@angular/forms';
-import { CardService } from './card.service';
-import { Card } from '../models/card';
-import { map } from 'rxjs/internal/operators';
+import { Injectable }     from '@angular/core';
+import { Validators }     from '@angular/forms';
+import { CardService }    from './card.service';
+import { Card }           from '../models/card';
+import { map }            from 'rxjs/internal/operators';
+import { getOptionsList } from '../shared/handlers';
 
 @Injectable({
   providedIn: 'root'
@@ -78,8 +79,8 @@ export class FieldsService {
     return {
       type: 'transfer',
       fields: [
-        {name: 'from', type: 'select', options: this.cards, title: 'Счет списания', validators: [Validators.required]},
-        {name: 'to', type: 'select', options: this.cards, title: 'Счет зачисления', validators: [Validators.required]},
+        {name: 'from', type: 'select', options: getOptionsList(this.cards), title: 'Счет списания', validators: [Validators.required]},
+        {name: 'to', type: 'select', options: getOptionsList(this.cards), title: 'Счет зачисления', validators: [Validators.required]},
         {name: 'balance', type: 'number', title: 'Сумма', validators: [Validators.required]}
       ]
     };

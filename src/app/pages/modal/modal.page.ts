@@ -36,6 +36,10 @@ export class ModalPage implements OnInit {
   }
 
   onSubmit() {
-    this.dismissModal({[this.type]: {cardId: this.cardId, ...this.form.value}});
+    const modalData: any = {};
+    if (this.type !== 'card') {
+      modalData.cardId = this.cardId;
+    }
+    this.dismissModal({[this.type]: {...modalData, ...this.form.value}});
   }
 }
