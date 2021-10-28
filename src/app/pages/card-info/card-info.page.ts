@@ -55,20 +55,6 @@ export class CardInfoPage implements OnInit {
     );
   }
 
-  async addTransaction(transaction: Transaction) {
-    const _transaction = new Transaction({...transaction, cardId: this.cardId});
-    await this.transactionService.add(_transaction);
-    await this.cardService.patchCard(_transaction.cardId, {balance: this.card.balance + (_transaction.income ? 1 : -1) * _transaction.sum});
-  }
-
-  async onTransferClick() {
-    await this.modalCtrl.openModal(ModalPage, {...this.fields.transferFields});
-  }
-  //
-  // transferMoney(transfer: any[]) {
-  //   console.log(transfer, 'info-page');
-  // }
-
   private reduceTransactions(transactions: Transaction[]): IReducedTransactions[] {
     return transactions.reduce((acc: IReducedTransactions[], cur) => {
       if (acc.length === 0) {

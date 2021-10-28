@@ -17,7 +17,7 @@
           </div>
         </div>
         <div class="button-block" *ngIf="balance && cards.length !== 0">
-          <app-action-button (buttonClick)="onTransferClick()" icon="repeat-outline"></app-action-button>
+          <app-action-button (buttonClick)="onTransferClick()" icon="repeat-outline" *ngIf="cards.length > 1"></app-action-button>
           <app-action-button (buttonClick)="addTransactionClick()"></app-action-button>
         </div>
       </div>
