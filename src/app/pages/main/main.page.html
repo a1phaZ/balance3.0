@@ -12,7 +12,8 @@
         <div class="balance-block">
           <div class="balance-block-title">Ваш баланс</div>
           <div *ngIf="balance" class="balance-block-sum">{{balance | toFixed : 2 | balance}}</div>
-          <div *ngIf="!balance" class="balance-block-sum">
+          <div *ngIf="balance === 0 && cards.length === 0" class="balance-block-sum">Добавьте счёт</div>
+          <div *ngIf="!balance && balance !== 0" class="balance-block-sum">
             <ion-spinner name="crescent"></ion-spinner>
           </div>
         </div>
@@ -44,7 +45,6 @@
           <span>Баланс: <strong>{{transactionsInSum - transactionsOutSum | balance}}</strong></span>
         </div>
       </div>
-<!--      TODO Fill elements-->
     </app-content-container>
   </app-container>
 </ion-content>
