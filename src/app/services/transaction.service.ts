@@ -33,13 +33,8 @@ export class TransactionService {
     return this.transactionsListRef;
   }
 
-  add(data: Transaction) {
-    return this.transactionsListRef.add({...data, userId: this.auth.userId})
-      .then(doc => new Promise((resolve) => {
-        doc.onSnapshot((d) => {
-          resolve(d.data());
-        });
-      }));
+  async add(data: Transaction) {
+    return await this.transactionsListRef.add({...data, userId: this.auth.userId});
   }
 }
 

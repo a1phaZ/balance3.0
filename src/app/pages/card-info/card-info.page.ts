@@ -27,19 +27,7 @@ export class CardInfoPage implements OnInit {
     private route: ActivatedRoute,
     private modalCtrl: ModalService,
     private fields: FieldsService,
-  ) {
-    modalCtrl.modalData.subscribe((res) => {
-      if (!res) {
-        return;
-      }
-      if (res.transactions) {
-        this.addTransaction(res.transactions);
-      }
-      if (res.transfer) {
-        this.transferMoney(res.transfer);
-      }
-    });
-  }
+  ) {}
 
   ngOnInit() {
     this.route.params.subscribe(async params => {
@@ -63,27 +51,23 @@ export class CardInfoPage implements OnInit {
   async onAddClick() {
     await this.modalCtrl.openModal(
       ModalPage,
-      this.fields.transactionFields
+      {...this.fields.transactionFields, cardId: this.cardId}
     );
   }
 
-  addTransaction(transaction: Transaction) {
+  async addTransaction(transaction: Transaction) {
     const _transaction = new Transaction({...transaction, cardId: this.cardId});
-    this.transactionService.add(_transaction)
-      .then(async (doc: Transaction) => {
-        const {sum, income, cardId} = doc;
-        this.cardService.patchCard(cardId, {balance: this.card.balance + (income ? 1 : -1) * sum});
-      })
-      .catch(err => console.log(err));
+    await this.transactionService.add(_transaction);
+    await this.cardService.patchCard(_transaction.cardId, {balance: this.card.balance + (_transaction.income ? 1 : -1) * _transaction.sum});
   }
 
   async onTransferClick() {
-    await this.modalCtrl.openModal(ModalPage, this.fields.transferFields);
+    await this.modalCtrl.openModal(ModalPage, {...this.fields.transferFields});
   }
-
-  transferMoney(transfer: any[]) {
-    console.log(transfer);
-  }
+  //
+  // transferMoney(transfer: any[]) {
+  //   console.log(transfer, 'info-page');
+  // }
 
   private reduceTransactions(transactions: Transaction[]): IReducedTransactions[] {
     return transactions.reduce((acc: IReducedTransactions[], cur) => {

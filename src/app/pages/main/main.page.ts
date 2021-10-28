@@ -33,7 +33,7 @@ export class MainPage implements OnInit {
     private fields: FieldsService,
     private navCtrl: NavController,
   ) {
-    modalCtrl.modalData.subscribe((res) => {
+    modalCtrl.modalData.subscribe(async (res) => {
       if (!res) {
         return;
       }
@@ -41,11 +41,12 @@ export class MainPage implements OnInit {
         this.addCard(res.card);
       }
       if (res.transactions) {
-        this.addTransaction(res.transactions);
+        await this.addTransaction(res.transactions);
       }
       if (res.transfer) {
         this.transferMoney(res.transfer);
       }
+      modalCtrl.modalData.next(null);
     });
   }
 
@@ -81,7 +82,6 @@ export class MainPage implements OnInit {
       });
       this.transactionsInSum = _in;
       this.transactionsOutSum = _out;
-      console.log(_in, _out);
       this.transactions = data;
     });
   }
@@ -92,22 +92,15 @@ export class MainPage implements OnInit {
     this.cardService.addCard({...this.card});
   }
 
-  addTransaction(transaction: Transaction) {
+  async addTransaction(transaction: Transaction) {
     const _transaction = new Transaction(transaction);
-    this.transactionService.add(_transaction)
-      .then(async (doc: Transaction) => {
-        const {sum, income, cardId} = doc;
-        let card: Card;
-        this.cardService.getCard(cardId).snapshotChanges().pipe(
-          map(changes => changes.payload)
-        ).subscribe(_doc => card = _doc.data());
-        this.cardService.patchCard(cardId, {balance: card.balance + (income ? 1 : -1)*sum});
-      })
-      .catch(err => console.log(err));
+    await this.transactionService.add(_transaction);
+    const card: Card = this.cards.find(({id}) => _transaction.cardId === id);
+    this.cardService.patchCard(_transaction.cardId, {balance: card.balance + (_transaction.income ? 1 : -1)*_transaction.sum});
   }
 
   async addCardClick() {
-    await this.modalCtrl.openModal(ModalPage, this.fields.cardFields);
+    await this.modalCtrl.openModal(ModalPage, {...this.fields.cardFields, page: 'main'});
   }
 
   async addTransactionClick() {
@@ -127,7 +120,7 @@ export class MainPage implements OnInit {
   }
 
   async onTransferClick() {
-    await this.modalCtrl.openModal(ModalPage, this.fields.transferFields);
+    await this.modalCtrl.openModal(ModalPage, {...this.fields.transferFields, page: 'main'});
   }
 
   transferMoney(transfer) {

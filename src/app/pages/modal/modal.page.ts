@@ -11,6 +11,7 @@ export class ModalPage implements OnInit {
   @Input() item: any;
   @Input() fields: any[];
   @Input() type: string;
+  @Input() cardId: string;
   data: any;
   form: FormGroup;
 
@@ -35,7 +36,6 @@ export class ModalPage implements OnInit {
   }
 
   onSubmit() {
-    console.log({[this.type]: this.form.value});
-    this.dismissModal({[this.type]: this.form.value});
+    this.dismissModal({[this.type]: {cardId: this.cardId, ...this.form.value}});
   }
 }
